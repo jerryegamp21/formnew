@@ -11,42 +11,36 @@ CREATE TABLE registrations (
     religion VARCHAR(255),
     contact_no VARCHAR(15),
     pantawid ENUM('Yes', 'No'),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-CREATE TABLE family (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    registration_id INT,
-    name VARCHAR(255) NOT NULL,
-    relationship VARCHAR(255),
-    age INT,
-    birthday DATE,
-    occupation VARCHAR(255),
-    FOREIGN KEY (registration_id) REFERENCES registrations(id) ON DELETE CASCADE
-);
-CREATE TABLE educational_attainment (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    registration_id INT,
+    
+    -- Family Composition (limiting to 3 family members as an example)
+    family_name VARCHAR(255),
+    family_relationship VARCHAR(255),
+    family_age INT,
+    family_birthday DATE,
+    family_occupation VARCHAR(255),
+    
+  
+
+    -- Educational Attainment
     elementary VARCHAR(255),
     high_school VARCHAR(255),
     vocational VARCHAR(255),
     college VARCHAR(255),
     others VARCHAR(255),
-    FOREIGN KEY (registration_id) REFERENCES registrations(id) ON DELETE CASCADE
-);
-CREATE TABLE community_involvement (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    registration_id INT,
+
+    -- Community Involvement
     school VARCHAR(255),
     civic VARCHAR(255),
     community VARCHAR(255),
     workspace VARCHAR(255),
-    FOREIGN KEY (registration_id) REFERENCES registrations(id) ON DELETE CASCADE
-);
-CREATE TABLE seminars_trainings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    registration_id INT,
-    title VARCHAR(255),
-    date DATE,
-    organizer VARCHAR(255),
-    FOREIGN KEY (registration_id) REFERENCES registrations(id) ON DELETE CASCADE
+
+    -- Seminars and Trainings (limiting to 3 seminars as an example)
+    seminar_title VARCHAR(255),
+    seminar_date DATE,
+    seminar_organizer VARCHAR(255),
+
+    
+
+    -- Created timestamp
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
