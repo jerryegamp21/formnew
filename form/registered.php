@@ -1,3 +1,4 @@
+
 <?php
 // Enable error reporting
 
@@ -62,6 +63,8 @@ if ($stmt->execute()) {
 $stmt->close();
 $conn->close();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,118 +74,111 @@ $conn->close();
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-        <h1 class="mb-4">Registration Summary</h1>
+        <h1 class="mb-4"> Registration Summary</h1>
 
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">Identifying Data</div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <tr><th>Name</th><td><?php echo htmlspecialchars($_POST['name']); ?></td></tr>
-                    <tr><th>Age</th><td><?php echo htmlspecialchars($age); ?></td></tr>
-                    <tr><th>Sex</th><td><?php echo htmlspecialchars($_POST['sex']); ?></td></tr>
-                    <tr><th>Status</th><td><?php echo htmlspecialchars($_POST['status']); ?></td></tr>
-                    <tr><th>Date of Birth</th><td><?php echo htmlspecialchars($_POST['date_of_birth']); ?></td></tr>
-                    <tr><th>Place of Birth</th><td><?php echo htmlspecialchars($_POST['place_of_birth']); ?></td></tr>
-                    <tr><th>Home Address</th><td><?php echo htmlspecialchars($_POST['home_address']); ?></td></tr>
-                    <tr><th>Occupation</th><td><?php echo htmlspecialchars($_POST['occupation']); ?></td></tr>
-                    <tr><th>Religion</th><td><?php echo htmlspecialchars($_POST['religion']); ?></td></tr>
-                    <tr><th>Contact No</th><td><?php echo htmlspecialchars($_POST['contact_no']); ?></td></tr>
-                    <tr><th>Pantawid</th><td><?php echo htmlspecialchars($_POST['pantawid']); ?></td></tr>
-
-                </table>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-header bg-secondary text-white">Family Composition</div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Relationship</th>
-                            <th>Age</th>
-                            <th>Birthday</th>
-                            <th>Occupation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($_POST['family_name'] as $index => $familyName): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($familyName); ?></td>
-                                <td><?php echo htmlspecialchars($_POST['family_relationship'][$index]); ?></td>
-                                <td><?php echo htmlspecialchars($_POST['family_age'][$index]); ?></td>
-                                <td><?php echo htmlspecialchars($_POST['family_birthday'][$index]); ?></td>
-                                <td><?php echo htmlspecialchars($_POST['family_occupation'][$index]); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-header bg-info text-white">Educational Attainment</div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <tr><th>Elementary</th><td><?php echo htmlspecialchars($_POST['elementary']); ?></td></tr>
-                    <tr><th>High School</th><td><?php echo htmlspecialchars($_POST['high_school']); ?></td></tr>
-                    <tr><th>Vocational</th><td><?php echo htmlspecialchars($_POST['vocational']); ?></td></tr>
-                    <tr><th>College</th><td><?php echo htmlspecialchars($_POST['college']); ?></td></tr>
-                    <tr><th>Others</th><td><?php echo htmlspecialchars($_POST['others']); ?></td></tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-header bg-warning text-white">Community Involvement</div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <tr><th>School</th><td><?php echo htmlspecialchars($_POST['school']); ?></td></tr>
-                    <tr><th>Civic</th><td><?php echo htmlspecialchars($_POST['civic']); ?></td></tr>
-                    <tr><th>Community</th><td><?php echo htmlspecialchars($_POST['community']); ?></td></tr>
-                    <tr><th>Workspace</th><td><?php echo htmlspecialchars($_POST['workspace']); ?></td></tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-    <div class="card-header bg-secondary text-white">Seminars and Trainings</div>
-    <div class="card-body">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Organizer</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($_POST['seminar_title'])): ?>
-                    <?php foreach ($_POST['seminar_title'] as $index => $seminarTitle): ?>
-                        <tr>
-                            <td><input type="text" name="seminar_title[]" value="<?php echo htmlspecialchars($seminarTitle); ?>" class="form-control" /></td>
-                            <td><input type="date" name="seminar_date[]" value="<?php echo htmlspecialchars($_POST['seminar_date'][$index]); ?>" class="form-control" /></td>
-                            <td><input type="text" name="seminar_organizer[]" value="<?php echo htmlspecialchars($_POST['seminar_organizer'][$index]); ?>" class="form-control" /></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="3">No seminars and trainings added.</td></tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-
-        <!-- Button to save data to database -->
+        <!-- Form starts here -->
         <form action="registered.php" method="POST">
-            <?php foreach ($_POST as $key => $value): ?>
-                <?php if (is_array($value)): ?>
-                    <?php foreach ($value as $subValue): ?>
-                        <input type="hidden" name="<?php echo htmlspecialchars($key); ?>[]" value="<?php echo htmlspecialchars($subValue); ?>">
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <input type="hidden" name="<?php echo htmlspecialchars($key); ?>" value="<?php echo htmlspecialchars($value); ?>">
-                <?php endif; ?>
-            <?php endforeach; ?>
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">Identifying Data</div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr><th>Name</th><td><input type="text" name="name" value="<?php echo htmlspecialchars($_POST['name']); ?>" class="form-control"></td></tr>
+                        <tr><th>Age</th><td><input type="number" name="age" value="<?php echo htmlspecialchars($age); ?>" class="form-control"></td></tr>
+                        <tr><th>Sex</th><td><input type="text" name="sex" value="<?php echo htmlspecialchars($_POST['sex']); ?>" class="form-control"></td></tr>
+                        <tr><th>Status</th><td><input type="text" name="status" value="<?php echo htmlspecialchars($_POST['status']); ?>" class="form-control"></td></tr>
+                        <tr><th>Date of Birth</th><td><input type="date" name="date_of_birth" value="<?php echo htmlspecialchars($_POST['date_of_birth']); ?>" class="form-control"></td></tr>
+                        <tr><th>Place of Birth</th><td><input type="text" name="place_of_birth" value="<?php echo htmlspecialchars($_POST['place_of_birth']); ?>" class="form-control"></td></tr>
+                        <tr><th>Home Address</th><td><input type="text" name="home_address" value="<?php echo htmlspecialchars($_POST['home_address']); ?>" class="form-control"></td></tr>
+                        <tr><th>Occupation</th><td><input type="text" name="occupation" value="<?php echo htmlspecialchars($_POST['occupation']); ?>" class="form-control"></td></tr>
+                        <tr><th>Religion</th><td><input type="text" name="religion" value="<?php echo htmlspecialchars($_POST['religion']); ?>" class="form-control"></td></tr>
+                        <tr><th>Contact No</th><td><input type="text" name="contact_no" value="<?php echo htmlspecialchars($_POST['contact_no']); ?>" class="form-control"></td></tr>
+                        <tr><th>Pantawid</th><td><input type="text" name="pantawid" value="<?php echo htmlspecialchars($_POST['pantawid']); ?>" class="form-control"></td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">Family Composition</div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Relationship</th>
+                                <th>Age</th>
+                                <th>Birthday</th>
+                                <th>Occupation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($_POST['family_name'] as $index => $familyName): ?>
+                                <tr>
+                                    <td><input type="text" name="family_name[]" value="<?php echo htmlspecialchars($familyName); ?>" class="form-control" /></td>
+                                    <td><input type="text" name="family_relationship[]" value="<?php echo htmlspecialchars($_POST['family_relationship'][$index]); ?>" class="form-control" /></td>
+                                    <td><input type="number" name="family_age[]" value="<?php echo htmlspecialchars($_POST['family_age'][$index]); ?>" class="form-control" /></td>
+                                    <td><input type="date" name="family_birthday[]" value="<?php echo htmlspecialchars($_POST['family_birthday'][$index]); ?>" class="form-control" /></td>
+                                    <td><input type="text" name="family_occupation[]" value="<?php echo htmlspecialchars($_POST['family_occupation'][$index]); ?>" class="form-control" /></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">Educational Attainment</div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr><th>Elementary</th><td><input type="text" name="elementary" value="<?php echo htmlspecialchars($_POST['elementary']); ?>" class="form-control" /></td></tr>
+                        <tr><th>High School</th><td><input type="text" name="high_school" value="<?php echo htmlspecialchars($_POST['high_school']); ?>" class="form-control" /></td></tr>
+                        <tr><th>Vocational</th><td><input type="text" name="vocational" value="<?php echo htmlspecialchars($_POST['vocational']); ?>" class="form-control" /></td></tr>
+                        <tr><th>College</th><td><input type="text" name="college" value="<?php echo htmlspecialchars($_POST['college']); ?>" class="form-control" /></td></tr>
+                        <tr><th>Others</th><td><input type="text" name="others" value="<?php echo htmlspecialchars($_POST['others']); ?>" class="form-control" /></td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-white">Community Involvement</div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr><th>School</th><td><input type="text" name="school" value="<?php echo htmlspecialchars($_POST['school']); ?>" class="form-control" /></td></tr>
+                        <tr><th>Civic</th><td><input type="text" name="civic" value="<?php echo htmlspecialchars($_POST['civic']); ?>" class="form-control" /></td></tr>
+                        <tr><th>Community</th><td><input type="text" name="community" value="<?php echo htmlspecialchars($_POST['community']); ?>" class="form-control" /></td></tr>
+                        <tr><th>Workspace</th><td><input type="text" name="workspace" value="<?php echo htmlspecialchars($_POST['workspace']); ?>" class="form-control" /></td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">Seminars and Trainings</div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Organizer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($_POST['seminar_title'])): ?>
+                                <?php foreach ($_POST['seminar_title'] as $index => $seminarTitle): ?>
+                                    <tr>
+                                        <td><input type="text" name="seminar_title[]" value="<?php echo htmlspecialchars($seminarTitle); ?>" class="form-control" /></td>
+                                        <td><input type="date" name="seminar_date[]" value="<?php echo htmlspecialchars($_POST['seminar_date'][$index]); ?>" class="form-control" /></td>
+                                        <td><input type="text" name="seminar_organizer[]" value="<?php echo htmlspecialchars($_POST['seminar_organizer'][$index]); ?>" class="form-control" /></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr><td colspan="3">No seminars and trainings added.</td></tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Submit button to save updated data to the database -->
             <button type="submit" name="save_to_database" class="btn btn-primary">Save to Database</button>
         </form>
     </div>
