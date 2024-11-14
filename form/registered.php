@@ -10,10 +10,10 @@ if ($conn->connect_error) {
 }
 
 // Prepare the insert statement
-$stmt = $conn->prepare("INSERT INTO registrations (name, age, sex, status, date_of_birth, place_of_birth, home_address, occupation, religion, contact_no, pantawid, family_member_name, family_relationship, family_age, family_birthday, family_occupation, education_level, community_involvement, seminar_title, seminar_date, seminar_organizer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)");
+$stmt = $conn->prepare("INSERT INTO registrations (name, age, sex, status, date_of_birth, place_of_birth, home_address, occupation, religion, contact_no, pantawid, family_name, family_relationship, family_age, family_birthday, family_occupation,elementary,high_school,vocational,college,others,school,civic,community,workspace, seminar_title, seminar_date, seminar_organizer) VALUES (?,?,?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?,?)");
 
 // Bind parameters
-$stmt->bind_param("sissssssssississsssss", $name, $age, $sex, $status, $date_of_birth, $place_of_birth, $home_address, $occupation, $religion, $contact_no, $pantawid, $family_member_name, $family_relationship, $family_age, $family_birthday, $family_occupation, $education_level, $community_involvement, $seminar_title, $seminar_date, $seminar_organizer);
+$stmt->bind_param("sissssssssississssssssssssss", $name, $age, $sex, $status, $date_of_birth, $place_of_birth, $home_address, $occupation, $religion, $contact_no, $pantawid, $family_member_name, $family_relationship, $family_age, $family_birthday, $family_occupation, $elementary,$high_school,$vocational,$college,$others,$school,$civic,$community,$workspace, $seminar_title, $seminar_date, $seminar_organizer);
 
 // Set parameters from POST data
 $name = $_POST['name'];
@@ -29,7 +29,7 @@ $contact_no = $_POST['contact_no'];
 
 // Assuming you want to insert the first family member's data
 $pantawid = isset($_POST['pantawid']) ? $_POST['pantawid'] : '';
-$family_member_name = is_array($_POST['family_name']) ? implode(", ", $_POST['family_name']) : $_POST['family_name'];
+$family_name = is_array($_POST['family_name']) ? implode(", ", $_POST['family_name']) : $_POST['family_name'];
 $family_relationship = is_array($_POST['family_relationship']) ? implode(", ", $_POST['family_relationship']) : $_POST['family_relationship'];
 $family_age = is_array($_POST['family_age']) ? implode(", ", $_POST['family_age']) : $_POST['family_age'];
 $family_birthday = is_array($_POST['family_birthday']) ? implode(", ", $_POST['family_birthday']) : $_POST['family_birthday'];
